@@ -112,6 +112,10 @@ class FormularioDIU:
         ''')
         
         self.conn.commit()
+        
+        # Obter lista de colunas válidas da tabela
+        self.cursor.execute("PRAGMA table_info(pacientes)")
+        self.valid_columns = set([col[1] for col in self.cursor.fetchall()])
     
     def get_input(self, prompt, required=False, tipo="texto"):
         """Obtém input do usuário com validação"""
@@ -305,7 +309,13 @@ class FormularioDIU:
         confirma = self.get_input("Deseja salvar este registro? (s/n): ", tipo="sim_nao")
         
         if confirma == 's':
-            # Montar query de inserção
+            # Validar que todas as colunas são válidas
+            invalid_columns = set(dados.keys()) - self.valid_columns
+            if invalid_columns:
+                print(f"\n✗ Erro: Colunas inválidas detectadas: {invalid_columns}")
+                return
+            
+            # Montar query de inserção com colunas validadas
             colunas = ', '.join(dados.keys())
             placeholders = ', '.join(['?' for _ in dados])
             query = f"INSERT INTO pacientes ({colunas}) VALUES ({placeholders})"
@@ -324,12 +334,12 @@ class FormularioDIU:
         print(f"ÚLTIMOS {limite} REGISTROS")
         print("="*60)
         
-        self.cursor.execute(f'''
+        self.cursor.execute('''
             SELECT id, nome_completo, data_nascimento, telefone, data_insercao, data_registro
             FROM pacientes
             ORDER BY id DESC
-            LIMIT {limite}
-        ''')
+            LIMIT ?
+        ''', (limite,))
         
         registros = self.cursor.fetchall()
         
