@@ -106,7 +106,37 @@ Ao iniciar o programa, você verá o menu principal com as seguintes opções:
 1. Novo Registro - Criar um novo registro de paciente
 2. Listar Registros - Ver os últimos registros salvos
 3. Buscar Paciente - Buscar registros por nome
-4. Exportar para CSV - Exportar todos os dados para arquivo CSV // queo modificar isso para que seja utilizado um banco de dados em um arquivo offline .db
+4. Exportar para CSV - Exportar todos os dados para arquivo CSV
 5. Sair - Encerrar o sistema
 ```
+
+**Nota:** Todos os dados são armazenados automaticamente em um banco de dados SQLite offline (`formulario_diu.db`). A opção "Exportar para CSV" permite exportar uma cópia dos dados para análise externa, mas o armazenamento principal é no arquivo .db.
+
+### Funcionalidades Detalhadas
+
+#### 1. Novo Registro
+Guia o usuário através de todas as seções do formulário:
+- **Identificação**: Nome, CPF, SUS, endereço, etc.
+- **Motivação**: Razões para inserção do DIU (pode selecionar múltiplas)
+- **Dados Ginecológicos**: DUM, histórico de IST, uso de MAC, etc.
+- **História Obstétrica**: Gesta, para, cesáreas, abortos, etc.
+- **Inserção do DIU**: Dados do procedimento, tipo de DIU, dificuldades, etc.
+
+#### 2. Listar Registros
+Exibe os 10 registros mais recentes com informações resumidas (nome, telefone, data de inserção).
+
+#### 3. Buscar Paciente
+Permite buscar pacientes por nome (busca parcial) e visualizar detalhes completos do registro.
+
+#### 4. Exportar para CSV
+Gera um arquivo CSV com timestamp contendo todos os registros e campos do banco de dados.
+
+### Armazenamento de Dados
+
+O sistema cria automaticamente um arquivo `formulario_diu.db` na pasta do programa. Este arquivo contém:
+- Todos os registros de pacientes
+- 73 campos de dados conforme especificado
+- Histórico completo com timestamps
+
+**Importante:** Faça backup regular do arquivo `formulario_diu.db` para não perder os dados!
 
