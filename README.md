@@ -1,7 +1,7 @@
 # Formulario-DIU
 
 
-## 📋 Informações Coletadas
+## Informações Coletadas
 
 ### IDENTIFICAÇÃO
 - Nome completo 
@@ -79,7 +79,7 @@
 
 
 
-## 🚀 Como Usar
+## Como Usar
 
 ### Requisitos
 - Python 3.6 ou superior
