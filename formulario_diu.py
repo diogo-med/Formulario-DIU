@@ -117,7 +117,7 @@ class FormularioDIU:
         self.cursor.execute("PRAGMA table_info(pacientes)")
         self.valid_columns = set([col[1] for col in self.cursor.fetchall()])
     
-    def get_input(self, prompt, required=False, tipo="texto"):
+    def get_input(self, prompt, required=False, tipo="texto", min_val=None, max_val=None):
         """Obtém input do usuário com validação"""
         while True:
             valor = input(prompt).strip()
@@ -131,7 +131,14 @@ class FormularioDIU:
             
             if tipo == "numero":
                 try:
-                    return int(valor)
+                    num = int(valor)
+                    if min_val is not None and num < min_val:
+                        print(f"Por favor, digite um número maior ou igual a {min_val}!")
+                        continue
+                    if max_val is not None and num > max_val:
+                        print(f"Por favor, digite um número menor ou igual a {max_val}!")
+                        continue
+                    return num
                 except ValueError:
                     print("Por favor, digite um número válido!")
                     continue
@@ -279,7 +286,7 @@ class FormularioDIU:
             dados['analgesia_qual'] = None
         dados['uso_dilatadores'] = self.get_input("Uso de dilatadores cervicais? (s/n): ", tipo="sim_nao")
         dados['histerometria_cm'] = self.get_input("Histerometria (cm): ", tipo="decimal")
-        dados['dor_nota'] = self.get_input("Nota de dor na inserção (1-10): ", tipo="numero")
+        dados['dor_nota'] = self.get_input("Nota de dor na inserção (1-10): ", tipo="numero", min_val=1, max_val=10)
         dados['dor_momento'] = self.get_input("Em qual momento (Histerometria/Liberação do DIU/Fixação do colo do útero/Outro): ")
         dados['dificuldade_insercao'] = self.get_input("Dificuldade na inserção (sem dificuldade/dificuldade esperada/mais difícil que o esperado/não foi possível inserir): ")
         if 'dificuldade' in dados['dificuldade_insercao'].lower() or 'difícil' in dados['dificuldade_insercao'].lower():
