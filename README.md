@@ -16,7 +16,7 @@
 - Endereço 
 - Local de atendimento 
 
-### DADOS GINECOLÓGICOS
+### MOTIVAÇÃO PARA INSERÇÃO DO DIU
 - 1 Contracepção
 - 2 Pós aborto
 - 3 SUA
@@ -78,10 +78,6 @@
 - inserido por ()staff/residente()ano/enfermeira/estudante()periodo/MFC()/supervisor())
 
 
-### Orientações e Observações
-- Orientações fornecidas à paciente
-- Data de retorno agendada
-- Observações adicionais
 
 ## 🚀 Como Usar
 
